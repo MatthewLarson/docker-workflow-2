@@ -16,5 +16,8 @@ jobs:
       run: |
         for i in `find ./src/ -type f -name "*.tsv"`;
         do
-          echo "$i"
+          sname = "$i"
+          sname = "${sname/.\/src\//.\/dist\/}"
+          sname = "${sname/.tsv/.txt}"
+          echo "$sname"
         done

@@ -2,7 +2,7 @@ name: File Lister
 on:
   push:
     branches:
-      - deploy
+      - master
     paths:
       - '**.tsv'
       - '**.csv'

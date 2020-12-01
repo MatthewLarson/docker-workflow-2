@@ -17,7 +17,7 @@ jobs:
         for i in `find ./src/ -type f -name "*.tsv"`;
         do
           let sname="$i"
-          let sname="${sname/.\/src\//.\/dist\/}"
-          let sname="${sname/.tsv/.txt}"
+          let sname=${sname/.\/src\//.\/dist\/}
+          let sname=${sname/.tsv/.txt}
           echo "$sname"
         done

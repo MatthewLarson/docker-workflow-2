@@ -19,5 +19,6 @@ jobs:
           sname="$i"
           sname="${sname/.\/src\//.\/dist\/}"
           sname="${sname/.tsv/.txt}"
-          echo "$sname"
+          cp $i $sname
+          echo "Copied file $i to $sname"
         done

@@ -1,0 +1,20 @@
+name: File Lister
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.tsv'
+      - '**.csv'
+jobs:
+  tsvlister:
+    name: TSV Lister
+    runs-on: ubuntu-latest
+    steps:
+      - name: List Files
+        if: ${{ contains(push.commits.*.modified.*, '.tsv') }}
+        run: |
+          for i in ${{push.commits.*.modified.*}}
+          do
+            echo "file = $i"
+          done

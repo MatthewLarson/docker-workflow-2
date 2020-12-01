@@ -11,10 +11,19 @@ jobs:
     name: TSV Lister
     runs-on: ubuntu-latest
     steps:
-      - name: List Files
-        if: ${{ contains(commits.*.modified.*, '.tsv') }}
+      - name: 'Checkout source code'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      # Check for changes
+      - name: Check for changes
+        id: checkForChanges
         run: |
-          for i in ${{commits.*.modified.*}}
-          do
-            echo "file = $i"
-          done
+            echo "::set-output name=grepValue::$( git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -c '^proxy' )"
+            - name: List Files
+              if: ${{ contains(commits.*.modified.*, '.tsv') }}
+              run: |
+                for i in ${{commits.*.modified.*}}
+                do
+                  echo "file = $i"
+                done

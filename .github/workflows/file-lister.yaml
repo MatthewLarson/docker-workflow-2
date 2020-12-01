@@ -22,3 +22,10 @@ jobs:
           cp $i $sname
           echo "Copied file $i to $sname"
         done
+    - name: Add artifact to repo
+      run: |
+        git config --global user.name "MatthewLarson"
+        git config --global user.email "larson.matt.b@gmail.com"
+        git add --all
+        git commit -m "ACTION: Generated dist/.txt files."
+        git push

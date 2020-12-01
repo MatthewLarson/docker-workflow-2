@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: List Files
-        if: ${{ contains(push.commits.*.modified.*, '.tsv') }}
+        if: ${{ contains(commits.*.modified.*, '.tsv') }}
         run: |
-          for i in ${{push.commits.*.modified.*}}
+          for i in ${{commits.*.modified.*}}
           do
             echo "file = $i"
           done

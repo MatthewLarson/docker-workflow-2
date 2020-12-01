@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Copy the Readmes
       run: |
-        for i in `find ./src/ -type f -name "*.img"`;
+        for i in `find ./src/ -type f -name "*.tsv"`;
         do
           echo "$i"
         done

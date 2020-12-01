@@ -2,7 +2,7 @@ name: File Lister
 on:
   push:
     branches:
-      - master
+      - deploy
     paths:
       - '**.tsv'
       - '**.csv'
@@ -11,12 +11,20 @@ jobs:
     name: TSV Lister
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout source code'
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      # Check for changes
-      - name: Check for changes
-        id: checkForChanges
-        run: |
-            echo "::set-output name=grepValue::$( git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -c '^proxy' )"
+    - uses: actions/checkout@master
+    - name: Copy the Readmes
+      run: |
+        find ./src/ -type f -name "**.tsv" | while read fname; do
+          dirname=`dirname "$fname"`
+          foldername=`basename "$dirname"`
+          filename=`basename "$fname"`
+          newname=`echo "$dirname" | sed -e "s/ /_/g"`
+          cp "${dirname}/$filename" "./dist/${foldername}.txt"
+        done
+    - name: Commit files
+      run: |
+        git config --global user.name "MatthewLarson"
+          git config --global user.email "larson.matt.b@gmail.com"
+          git add --all
+          git commit -m "Moved files around"
+          git push

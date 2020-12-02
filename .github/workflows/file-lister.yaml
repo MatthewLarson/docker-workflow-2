@@ -8,7 +8,7 @@ on:
       - '**.csv'
 jobs:
   tsvlister:
-    name: TSV Lister
+    name: TSV Mover
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -22,7 +22,7 @@ jobs:
           cp $i $sname
           echo "Copied file $i to $sname"
         done
-    - name: Add artifact to repo
+    - name: Commit moved files to repo
       run: |
         git config --global user.name "MatthewLarson"
         git config --global user.email "larson.matt.b@gmail.com"
